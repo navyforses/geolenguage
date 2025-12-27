@@ -16,7 +16,7 @@ import AlertsPanel from '../components/AlertsPanel';
 const platformData = {
   google: {
     name: 'Google Search',
-    category: 'search',
+    category: 'ძიება',
     parent: 'Alphabet Inc.',
     ticker: 'GOOGL',
     price: 175.50,
@@ -26,11 +26,11 @@ const platformData = {
     founded: 1998,
     hq: 'Mountain View, CA',
     website: 'https://www.google.com',
-    description: 'World\'s largest search engine, handling over 8.5 billion searches per day.'
+    description: 'მსოფლიოში უდიდესი საძიებო სისტემა, რომელიც ამუშავებს დღეში 8.5 მილიარდზე მეტ ძიებას.'
   },
   youtube: {
     name: 'YouTube',
-    category: 'video',
+    category: 'ვიდეო',
     parent: 'Alphabet Inc.',
     ticker: 'GOOGL',
     price: 175.50,
@@ -40,11 +40,11 @@ const platformData = {
     founded: 2005,
     hq: 'San Bruno, CA',
     website: 'https://www.youtube.com',
-    description: 'World\'s largest video sharing platform with over 2 billion monthly users.'
+    description: 'მსოფლიოში უდიდესი ვიდეო გაზიარების პლატფორმა 2 მილიარდზე მეტი ყოველთვიური მომხმარებლით.'
   },
   facebook: {
     name: 'Facebook',
-    category: 'social',
+    category: 'სოციალური',
     parent: 'Meta Platforms Inc.',
     ticker: 'META',
     price: 485.20,
@@ -54,11 +54,11 @@ const platformData = {
     founded: 2004,
     hq: 'Menlo Park, CA',
     website: 'https://www.facebook.com',
-    description: 'Leading social network with nearly 3 billion monthly active users.'
+    description: 'წამყვანი სოციალური ქსელი თითქმის 3 მილიარდი ყოველთვიური აქტიური მომხმარებლით.'
   },
   instagram: {
     name: 'Instagram',
-    category: 'social',
+    category: 'სოციალური',
     parent: 'Meta Platforms Inc.',
     ticker: 'META',
     price: 485.20,
@@ -68,11 +68,11 @@ const platformData = {
     founded: 2010,
     hq: 'Menlo Park, CA',
     website: 'https://www.instagram.com',
-    description: 'Photo and video sharing platform with over 2 billion monthly users.'
+    description: 'ფოტო და ვიდეო გაზიარების პლატფორმა 2 მილიარდზე მეტი ყოველთვიური მომხმარებლით.'
   },
   chatgpt: {
     name: 'ChatGPT',
-    category: 'ai',
+    category: 'AI',
     parent: 'OpenAI',
     ticker: null,
     price: null,
@@ -82,11 +82,11 @@ const platformData = {
     founded: 2022,
     hq: 'San Francisco, CA',
     website: 'https://chat.openai.com',
-    description: 'Revolutionary AI chatbot that reached 100 million users in 2 months.'
+    description: 'რევოლუციური AI ჩატბოტი, რომელმაც 100 მილიონ მომხმარებელს მიაღწია 2 თვეში.'
   },
   amazon: {
     name: 'Amazon',
-    category: 'ecommerce',
+    category: 'ელ-კომერცია',
     parent: 'Amazon.com Inc.',
     ticker: 'AMZN',
     price: 185.75,
@@ -96,11 +96,11 @@ const platformData = {
     founded: 1994,
     hq: 'Seattle, WA',
     website: 'https://www.amazon.com',
-    description: 'World\'s largest e-commerce and cloud computing company.'
+    description: 'მსოფლიოში უდიდესი ელ-კომერციისა და ღრუბლოვანი გამოთვლების კომპანია.'
   },
   twitter: {
     name: 'X (Twitter)',
-    category: 'social',
+    category: 'სოციალური',
     parent: 'X Corp.',
     ticker: null,
     price: null,
@@ -110,11 +110,11 @@ const platformData = {
     founded: 2006,
     hq: 'San Francisco, CA',
     website: 'https://twitter.com',
-    description: 'Real-time social media platform for news and public discourse.'
+    description: 'რეალურ დროში სოციალური მედია პლატფორმა სიახლეებისა და საჯარო დისკუსიებისთვის.'
   },
   tiktok: {
     name: 'TikTok',
-    category: 'video',
+    category: 'ვიდეო',
     parent: 'ByteDance',
     ticker: null,
     price: null,
@@ -124,11 +124,11 @@ const platformData = {
     founded: 2016,
     hq: 'Los Angeles, CA',
     website: 'https://www.tiktok.com',
-    description: 'Short-form video platform with over 1 billion monthly active users.'
+    description: 'მოკლე ვიდეო პლატფორმა 1 მილიარდზე მეტი ყოველთვიური აქტიური მომხმარებლით.'
   },
   reddit: {
     name: 'Reddit',
-    category: 'social',
+    category: 'სოციალური',
     parent: 'Reddit Inc.',
     ticker: 'RDDT',
     price: 125.30,
@@ -138,11 +138,11 @@ const platformData = {
     founded: 2005,
     hq: 'San Francisco, CA',
     website: 'https://www.reddit.com',
-    description: 'Community-driven discussion platform with millions of active communities.'
+    description: 'საზოგადოებაზე დაფუძნებული დისკუსიის პლატფორმა მილიონობით აქტიური საზოგადოებით.'
   },
   linkedin: {
     name: 'LinkedIn',
-    category: 'professional',
+    category: 'პროფესიონალური',
     parent: 'Microsoft Corp.',
     ticker: 'MSFT',
     price: 425.80,
@@ -152,8 +152,14 @@ const platformData = {
     founded: 2002,
     hq: 'Sunnyvale, CA',
     website: 'https://www.linkedin.com',
-    description: 'Professional networking platform with over 900 million members.'
+    description: 'პროფესიონალური ქსელის პლატფორმა 900 მილიონზე მეტი წევრით.'
   }
+};
+
+const outlookLabels = {
+  bullish: 'ზრდადი',
+  bearish: 'კლებადი',
+  neutral: 'ნეიტრალური'
 };
 
 export default function Platform() {
@@ -163,10 +169,10 @@ export default function Platform() {
   if (!platform) {
     return (
       <div className="text-center py-20">
-        <h1 className="text-2xl font-bold text-white mb-4">Platform not found</h1>
+        <h1 className="text-2xl font-bold text-white mb-4">პლატფორმა ვერ მოიძებნა</h1>
         <Link to="/" className="btn btn-primary">
           <ArrowLeft className="w-4 h-4 mr-2" />
-          Back to Dashboard
+          მთავარ პანელზე დაბრუნება
         </Link>
       </div>
     );
@@ -175,11 +181,11 @@ export default function Platform() {
   const getOutlookBadge = () => {
     switch (platform.outlook) {
       case 'bullish':
-        return <span className="badge badge-green text-sm">Bullish</span>;
+        return <span className="badge badge-green text-sm">{outlookLabels.bullish}</span>;
       case 'bearish':
-        return <span className="badge badge-red text-sm">Bearish</span>;
+        return <span className="badge badge-red text-sm">{outlookLabels.bearish}</span>;
       default:
-        return <span className="badge badge-yellow text-sm">Neutral</span>;
+        return <span className="badge badge-yellow text-sm">{outlookLabels.neutral}</span>;
     }
   };
 
@@ -224,59 +230,59 @@ export default function Platform() {
             )}
 
             <div className="card">
-              <p className="text-dark-400 text-sm">Sentiment</p>
+              <p className="text-dark-400 text-sm">სენტიმენტი</p>
               <p className={`text-2xl font-bold mt-1 ${platform.sentiment > 0 ? 'text-green-400' : 'text-red-400'}`}>
                 {platform.sentiment > 0 ? '+' : ''}{platform.sentiment.toFixed(2)}
               </p>
-              <p className="text-xs text-dark-500 mt-1">Social Media Score</p>
+              <p className="text-xs text-dark-500 mt-1">სოციალური მედიის ქულა</p>
             </div>
 
             <div className="card">
-              <p className="text-dark-400 text-sm">Market Outlook</p>
-              <p className={`text-2xl font-bold mt-1 capitalize ${
+              <p className="text-dark-400 text-sm">საბაზრო პროგნოზი</p>
+              <p className={`text-2xl font-bold mt-1 ${
                 platform.outlook === 'bullish' ? 'text-green-400' :
                 platform.outlook === 'bearish' ? 'text-red-400' : 'text-yellow-400'
               }`}>
-                {platform.outlook}
+                {outlookLabels[platform.outlook]}
               </p>
-              <p className="text-xs text-dark-500 mt-1">30-Day Forecast</p>
+              <p className="text-xs text-dark-500 mt-1">30-დღიანი პროგნოზი</p>
             </div>
 
             <div className="card">
-              <p className="text-dark-400 text-sm">Category</p>
-              <p className="text-2xl font-bold text-white mt-1 capitalize">{platform.category}</p>
-              <p className="text-xs text-dark-500 mt-1">Platform Type</p>
+              <p className="text-dark-400 text-sm">კატეგორია</p>
+              <p className="text-2xl font-bold text-white mt-1">{platform.category}</p>
+              <p className="text-xs text-dark-500 mt-1">პლატფორმის ტიპი</p>
             </div>
           </div>
 
           {/* Charts */}
-          <ForecastChart title="Price History & Forecast" type="line" />
-          <ForecastChart title="Sentiment Trend" type="area" />
+          <ForecastChart title="ფასის ისტორია და პროგნოზი" type="line" />
+          <ForecastChart title="სენტიმენტის ტრენდი" type="area" />
 
           {/* AI Analysis */}
           <div className="card">
-            <h3 className="text-lg font-semibold text-white mb-4">AI Analysis</h3>
+            <h3 className="text-lg font-semibold text-white mb-4">AI ანალიზი</h3>
             <div className="space-y-4">
               <div>
-                <h4 className="text-sm font-medium text-dark-300 mb-2">Summary</h4>
+                <h4 className="text-sm font-medium text-dark-300 mb-2">მიმოხილვა</h4>
                 <p className="text-dark-400">{platform.description}</p>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <h4 className="text-sm font-medium text-dark-300 mb-2">Strengths</h4>
+                  <h4 className="text-sm font-medium text-dark-300 mb-2">ძლიერი მხარეები</h4>
                   <ul className="space-y-1 text-sm text-dark-400">
-                    <li>• Strong market position</li>
-                    <li>• Diversified revenue streams</li>
-                    <li>• High user engagement</li>
+                    <li>• მყარი საბაზრო პოზიცია</li>
+                    <li>• დივერსიფიცირებული შემოსავლის წყაროები</li>
+                    <li>• მაღალი მომხმარებელთა ჩართულობა</li>
                   </ul>
                 </div>
                 <div>
-                  <h4 className="text-sm font-medium text-dark-300 mb-2">Risks</h4>
+                  <h4 className="text-sm font-medium text-dark-300 mb-2">რისკები</h4>
                   <ul className="space-y-1 text-sm text-dark-400">
-                    <li>• Regulatory challenges</li>
-                    <li>• Competition pressure</li>
-                    <li>• Market saturation</li>
+                    <li>• რეგულატორული გამოწვევები</li>
+                    <li>• კონკურენციის ზეწოლა</li>
+                    <li>• ბაზრის გაჯერება</li>
                   </ul>
                 </div>
               </div>
@@ -288,40 +294,40 @@ export default function Platform() {
         <div className="space-y-6">
           {/* Platform Info */}
           <div className="card">
-            <h3 className="text-lg font-semibold text-white mb-4">Platform Info</h3>
+            <h3 className="text-lg font-semibold text-white mb-4">პლატფორმის ინფორმაცია</h3>
             <div className="space-y-3">
               <div className="flex items-center gap-3">
                 <Building2 className="w-5 h-5 text-dark-400" />
                 <div>
-                  <p className="text-sm text-dark-400">Parent Company</p>
+                  <p className="text-sm text-dark-400">მშობელი კომპანია</p>
                   <p className="text-white">{platform.parent}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
                 <Calendar className="w-5 h-5 text-dark-400" />
                 <div>
-                  <p className="text-sm text-dark-400">Founded</p>
+                  <p className="text-sm text-dark-400">დაარსდა</p>
                   <p className="text-white">{platform.founded}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
                 <MapPin className="w-5 h-5 text-dark-400" />
                 <div>
-                  <p className="text-sm text-dark-400">Headquarters</p>
+                  <p className="text-sm text-dark-400">სათაო ოფისი</p>
                   <p className="text-white">{platform.hq}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
                 <Globe className="w-5 h-5 text-dark-400" />
                 <div>
-                  <p className="text-sm text-dark-400">Website</p>
+                  <p className="text-sm text-dark-400">ვებსაიტი</p>
                   <a
                     href={platform.website}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-primary-400 hover:text-primary-300 flex items-center gap-1"
                   >
-                    Visit <ExternalLink className="w-3 h-3" />
+                    გადასვლა <ExternalLink className="w-3 h-3" />
                   </a>
                 </div>
               </div>
