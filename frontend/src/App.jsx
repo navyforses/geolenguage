@@ -6,6 +6,8 @@ import Platform from './pages/Platform';
 import Compare from './pages/Compare';
 import Reports from './pages/Reports';
 import Alerts from './pages/Alerts';
+import RiskManagement from './components/RiskManagement';
+import AIScout from './components/AIScout';
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/platform/:slug" element={<Platform />} />
+          <Route path="/scout" element={<AIScout />} />
+          <Route path="/risk" element={<RiskManagement />} />
           <Route path="/compare" element={<Compare />} />
           <Route path="/reports" element={<Reports />} />
           <Route path="/alerts" element={<Alerts />} />
