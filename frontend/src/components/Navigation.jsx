@@ -7,11 +7,13 @@ import {
   Bell,
   Menu,
   X,
-  TrendingUp
+  TrendingUp,
+  Shield
 } from 'lucide-react';
 
 const navItems = [
   { path: '/', label: 'მთავარი', icon: LayoutDashboard },
+  { path: '/risk', label: 'რისკი', icon: Shield },
   { path: '/compare', label: 'შედარება', icon: GitCompare },
   { path: '/reports', label: 'ანგარიშები', icon: FileText },
   { path: '/alerts', label: 'შეტყობინებები', icon: Bell }
