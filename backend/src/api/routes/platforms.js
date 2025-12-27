@@ -3,6 +3,7 @@ const router = express.Router();
 const { query, param } = require('express-validator');
 const { validate, slugValidator } = require('../../utils/validators');
 const PlatformService = require('../../services/PlatformService');
+const RealDataService = require('../../services/RealDataService');
 const cache = require('../../utils/cache');
 
 /**
@@ -171,6 +172,139 @@ router.get('/:slug/refresh',
                 message: 'Data refresh initiated',
                 platform: slug,
                 ...result
+            });
+        } catch (error) {
+            next(error);
+        }
+    }
+);
+
+// ============================================
+// REAL DATA ENDPOINTS (Live API Data)
+// ============================================
+
+/**
+ * GET /api/platforms/live/all
+ * Get real-time data for all platforms from APIs
+ */
+router.get('/live/all',
+    async (req, res, next) => {
+        try {
+            const data = await RealDataService.getAllPlatformsData();
+            res.json({
+                success: true,
+                timestamp: new Date().toISOString(),
+                platforms: data
+            });
+        } catch (error) {
+            next(error);
+        }
+    }
+);
+
+/**
+ * GET /api/platforms/live/dashboard
+ * Get dashboard summary with real data
+ */
+router.get('/live/dashboard',
+    async (req, res, next) => {
+        try {
+            const data = await RealDataService.getDashboardData();
+            res.json({
+                success: true,
+                timestamp: new Date().toISOString(),
+                data
+            });
+        } catch (error) {
+            next(error);
+        }
+    }
+);
+
+/**
+ * GET /api/platforms/live/feed
+ * Get live feed of updates
+ */
+router.get('/live/feed',
+    query('limit').optional().isInt({ min: 1, max: 50 }).toInt(),
+    validate,
+    async (req, res, next) => {
+        try {
+            const limit = req.query.limit || 20;
+            const feed = await RealDataService.getLiveFeed(limit);
+            res.json({
+                success: true,
+                timestamp: new Date().toISOString(),
+                feed
+            });
+        } catch (error) {
+            next(error);
+        }
+    }
+);
+
+/**
+ * GET /api/platforms/live/:slug
+ * Get real-time data for a specific platform
+ */
+router.get('/live/:slug',
+    param('slug').custom(slugValidator),
+    validate,
+    async (req, res, next) => {
+        try {
+            const { slug } = req.params;
+            const data = await RealDataService.getPlatformData(slug);
+            res.json({
+                success: true,
+                timestamp: new Date().toISOString(),
+                ...data
+            });
+        } catch (error) {
+            next(error);
+        }
+    }
+);
+
+/**
+ * GET /api/platforms/live/:slug/history
+ * Get historical stock data for a platform
+ */
+router.get('/live/:slug/history',
+    param('slug').custom(slugValidator),
+    query('range').optional().isIn(['1d', '5d', '1mo', '3mo', '6mo', '1y', '2y', '5y']),
+    validate,
+    async (req, res, next) => {
+        try {
+            const { slug } = req.params;
+            const range = req.query.range || '1mo';
+            const data = await RealDataService.getHistoricalData(slug, range);
+            res.json({
+                success: true,
+                platform: slug,
+                range,
+                data
+            });
+        } catch (error) {
+            next(error);
+        }
+    }
+);
+
+/**
+ * POST /api/platforms/live/:slug/refresh
+ * Force refresh data for a platform
+ */
+router.post('/live/:slug/refresh',
+    param('slug').custom(slugValidator),
+    validate,
+    async (req, res, next) => {
+        try {
+            const { slug } = req.params;
+            const data = await RealDataService.refreshPlatform(slug);
+            res.json({
+                success: true,
+                message: 'მონაცემები განახლდა',
+                ...data
             });
         } catch (error) {
             next(error);
