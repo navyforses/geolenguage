@@ -8,11 +8,13 @@ import {
   Menu,
   X,
   TrendingUp,
-  Shield
+  Shield,
+  Radar
 } from 'lucide-react';
 
 const navItems = [
   { path: '/', label: 'მთავარი', icon: LayoutDashboard },
+  { path: '/scout', label: 'AI სკაუტი', icon: Radar },
   { path: '/risk', label: 'რისკი', icon: Shield },
   { path: '/compare', label: 'შედარება', icon: GitCompare },
   { path: '/reports', label: 'ანგარიშები', icon: FileText },
