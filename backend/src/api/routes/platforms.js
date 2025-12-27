@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { query, param } = require('express-validator');
-const { validate } = require('../../utils/validators');
+const { validate, slugValidator } = require('../../utils/validators');
 const PlatformService = require('../../services/PlatformService');
 const cache = require('../../utils/cache');
 
@@ -42,7 +42,7 @@ router.get('/',
  * Get single platform with current metrics
  */
 router.get('/:slug',
-    param('slug').isSlug(),
+    param('slug').custom(slugValidator),
     validate,
     async (req, res, next) => {
         try {
@@ -71,7 +71,7 @@ router.get('/:slug',
  * Get platform metrics with time range
  */
 router.get('/:slug/metrics',
-    param('slug').isSlug(),
+    param('slug').custom(slugValidator),
     query('from').optional().isISO8601(),
     query('to').optional().isISO8601(),
     query('type').optional().isString(),
@@ -104,7 +104,7 @@ router.get('/:slug/metrics',
  * Get historical data for a platform
  */
 router.get('/:slug/historical',
-    param('slug').isSlug(),
+    param('slug').custom(slugValidator),
     query('days').optional().isInt({ min: 1, max: 365 }).toInt(),
     query('metric_type').optional().isString(),
     validate,
@@ -155,7 +155,7 @@ router.post('/compare',
  * Manually trigger data refresh for a platform
  */
 router.get('/:slug/refresh',
-    param('slug').isSlug(),
+    param('slug').custom(slugValidator),
     validate,
     async (req, res, next) => {
         try {

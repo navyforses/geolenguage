@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { query, param } = require('express-validator');
-const { validate } = require('../../utils/validators');
+const { validate, slugValidator } = require('../../utils/validators');
 const ForecastService = require('../../services/ForecastService');
 const cache = require('../../utils/cache');
 
@@ -36,7 +36,7 @@ router.get('/',
  * Get forecasts for a specific platform
  */
 router.get('/platform/:slug',
-    param('slug').isSlug(),
+    param('slug').custom(slugValidator),
     validate,
     async (req, res, next) => {
         try {

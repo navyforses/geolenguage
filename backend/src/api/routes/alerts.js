@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { query, param, body } = require('express-validator');
-const { validate } = require('../../utils/validators');
+const { validate, slugValidator } = require('../../utils/validators');
 const AlertService = require('../../services/AlertService');
 
 /**
@@ -150,7 +150,7 @@ router.delete('/:id',
  * Get alerts for a specific platform
  */
 router.get('/platform/:slug',
-    param('slug').isSlug(),
+    param('slug').custom(slugValidator),
     query('limit').optional().isInt({ min: 1, max: 100 }).toInt(),
     validate,
     async (req, res, next) => {

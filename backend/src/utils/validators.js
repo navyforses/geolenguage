@@ -22,29 +22,18 @@ function validate(req, res, next) {
  * Custom validator for slug format
  */
 function isSlug(value) {
+    if (!value) return false;
     return /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value);
 }
 
-// Register custom validators
-const { param, query, body } = require('express-validator');
+/**
+ * Custom slug validation for use with express-validator
+ */
+function slugValidator(value) {
+    if (!isSlug(value)) {
+        throw new Error('Invalid slug format');
+    }
+    return true;
+}
 
-// Extend express-validator with custom validators
-param.prototype.isSlug = function() {
-    return this.custom((value) => {
-        if (!isSlug(value)) {
-            throw new Error('Invalid slug format');
-        }
-        return true;
-    });
-};
-
-query.prototype.isSlug = function() {
-    return this.custom((value) => {
-        if (!isSlug(value)) {
-            throw new Error('Invalid slug format');
-        }
-        return true;
-    });
-};
-
-module.exports = { validate, isSlug };
+module.exports = { validate, isSlug, slugValidator };
