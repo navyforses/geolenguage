@@ -1,20 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
 // Mock data - რეალურ ვერსიაში API-დან მოვა
 const mockAssets = [
-  { symbol: 'NVDA', name: 'NVIDIA Corporation', price: 485.20, change: 3.2, score: 9.2, type: 'stock', sector: 'ტექნოლოგია', rsi: 35, volume: 280, sentiment: 82, recommendation: 'buy' },
-  { symbol: 'ETH', name: 'Ethereum', price: 2450, change: 1.8, score: 8.8, type: 'crypto', sector: 'კრიპტო', rsi: 38, volume: 195, sentiment: 78, recommendation: 'buy' },
-  { symbol: 'MSFT', name: 'Microsoft Corporation', price: 378.50, change: 0.9, score: 8.5, type: 'stock', sector: 'ტექნოლოგია', rsi: 52, volume: 120, sentiment: 71, recommendation: 'buy' },
-  { symbol: 'BTC', name: 'Bitcoin', price: 43500, change: -0.5, score: 7.9, type: 'crypto', sector: 'კრიპტო', rsi: 48, volume: 145, sentiment: 65, recommendation: 'hold' },
-  { symbol: 'AAPL', name: 'Apple Inc.', price: 178.50, change: 2.1, score: 8.1, type: 'stock', sector: 'ტექნოლოგია', rsi: 42, volume: 110, sentiment: 69, recommendation: 'buy' },
-  { symbol: 'TSLA', name: 'Tesla Inc.', price: 245.80, change: -1.2, score: 7.2, type: 'stock', sector: 'ავტომობილები', rsi: 58, volume: 185, sentiment: 55, recommendation: 'hold' },
-  { symbol: 'SOL', name: 'Solana', price: 98.50, change: 4.5, score: 8.4, type: 'crypto', sector: 'კრიპტო', rsi: 41, volume: 220, sentiment: 75, recommendation: 'buy' },
-  { symbol: 'EUR/USD', name: 'Euro / US Dollar', price: 1.0875, change: 0.3, score: 6.8, type: 'forex', sector: 'ვალუტა', rsi: 55, volume: 100, sentiment: 52, recommendation: 'hold' },
-  { symbol: 'AMZN', name: 'Amazon.com Inc.', price: 152.30, change: 1.5, score: 7.8, type: 'stock', sector: 'ტექნოლოგია', rsi: 45, volume: 135, sentiment: 68, recommendation: 'buy' },
-  { symbol: 'XRP', name: 'Ripple', price: 0.52, change: 2.8, score: 7.5, type: 'crypto', sector: 'კრიპტო', rsi: 39, volume: 175, sentiment: 62, recommendation: 'buy' },
+  { symbol: 'NVDA', name: 'NVIDIA Corporation', price: 485.20, change: 3.2, score: 9.2, type: 'stock', sector: 'ტექნოლოგია', rsi: 35, volume: 280, sentiment: 82, recommendation: 'buy', target: 550, stopLoss: 440 },
+  { symbol: 'ETH', name: 'Ethereum', price: 2450, change: 1.8, score: 8.8, type: 'crypto', sector: 'კრიპტო', rsi: 38, volume: 195, sentiment: 78, recommendation: 'buy', target: 2900, stopLoss: 2200 },
+  { symbol: 'MSFT', name: 'Microsoft Corporation', price: 378.50, change: 0.9, score: 8.5, type: 'stock', sector: 'ტექნოლოგია', rsi: 52, volume: 120, sentiment: 71, recommendation: 'buy', target: 420, stopLoss: 350 },
+  { symbol: 'BTC', name: 'Bitcoin', price: 43500, change: -0.5, score: 7.9, type: 'crypto', sector: 'კრიპტო', rsi: 48, volume: 145, sentiment: 65, recommendation: 'hold', target: 50000, stopLoss: 40000 },
+  { symbol: 'AAPL', name: 'Apple Inc.', price: 178.50, change: 2.1, score: 8.1, type: 'stock', sector: 'ტექნოლოგია', rsi: 42, volume: 110, sentiment: 69, recommendation: 'buy', target: 200, stopLoss: 165 },
+  { symbol: 'TSLA', name: 'Tesla Inc.', price: 245.80, change: -1.2, score: 7.2, type: 'stock', sector: 'ავტომობილები', rsi: 58, volume: 185, sentiment: 55, recommendation: 'hold', target: 280, stopLoss: 220 },
+  { symbol: 'SOL', name: 'Solana', price: 98.50, change: 4.5, score: 8.4, type: 'crypto', sector: 'კრიპტო', rsi: 41, volume: 220, sentiment: 75, recommendation: 'buy', target: 120, stopLoss: 85 },
+  { symbol: 'EUR/USD', name: 'Euro / US Dollar', price: 1.0875, change: 0.3, score: 6.8, type: 'forex', sector: 'ვალუტა', rsi: 55, volume: 100, sentiment: 52, recommendation: 'hold', target: 1.12, stopLoss: 1.06 },
+  { symbol: 'AMZN', name: 'Amazon.com Inc.', price: 152.30, change: 1.5, score: 7.8, type: 'stock', sector: 'ტექნოლოგია', rsi: 45, volume: 135, sentiment: 68, recommendation: 'buy', target: 175, stopLoss: 140 },
+  { symbol: 'XRP', name: 'Ripple', price: 0.52, change: 2.8, score: 7.5, type: 'crypto', sector: 'კრიპტო', rsi: 39, volume: 175, sentiment: 62, recommendation: 'buy', target: 0.65, stopLoss: 0.45 },
 ];
 
 export default function AIScout() {
+  // State
   const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState({
     type: 'all',
@@ -29,6 +30,32 @@ export default function AIScout() {
   const [lastScan, setLastScan] = useState(null);
   const [selectedAsset, setSelectedAsset] = useState(null);
 
+  // Portfolio & Watchlist
+  const [portfolio, setPortfolio] = useState(() => {
+    const saved = localStorage.getItem('tradeGid_portfolio');
+    return saved ? JSON.parse(saved) : { balance: 10000, positions: [] };
+  });
+  const [watchlist, setWatchlist] = useState(() => {
+    const saved = localStorage.getItem('tradeGid_watchlist');
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  // Modals
+  const [showBuyModal, setShowBuyModal] = useState(false);
+  const [showAnalysisModal, setShowAnalysisModal] = useState(false);
+  const [buyAmount, setBuyAmount] = useState('');
+  const [notification, setNotification] = useState(null);
+
+  // Save to localStorage
+  useEffect(() => {
+    localStorage.setItem('tradeGid_portfolio', JSON.stringify(portfolio));
+  }, [portfolio]);
+
+  useEffect(() => {
+    localStorage.setItem('tradeGid_watchlist', JSON.stringify(watchlist));
+  }, [watchlist]);
+
+  // Filter function
   const applyFilters = () => {
     setIsScanning(true);
 
@@ -58,6 +85,76 @@ export default function AIScout() {
     applyFilters();
   }, []);
 
+  // Show notification
+  const showNotification = (message, type = 'success') => {
+    setNotification({ message, type });
+    setTimeout(() => setNotification(null), 3000);
+  };
+
+  // Buy asset
+  const handleBuy = () => {
+    const amount = parseFloat(buyAmount);
+    if (!amount || amount <= 0) {
+      showNotification('შეიყვანეთ სწორი რაოდენობა', 'error');
+      return;
+    }
+
+    const totalCost = amount * selectedAsset.price;
+    if (totalCost > portfolio.balance) {
+      showNotification('არასაკმარისი ბალანსი', 'error');
+      return;
+    }
+
+    const existingPosition = portfolio.positions.find(p => p.symbol === selectedAsset.symbol);
+
+    if (existingPosition) {
+      // Add to existing position
+      const newAvgPrice = ((existingPosition.avgPrice * existingPosition.amount) + totalCost) / (existingPosition.amount + amount);
+      setPortfolio(prev => ({
+        balance: prev.balance - totalCost,
+        positions: prev.positions.map(p =>
+          p.symbol === selectedAsset.symbol
+            ? { ...p, amount: p.amount + amount, avgPrice: newAvgPrice }
+            : p
+        )
+      }));
+    } else {
+      // New position
+      setPortfolio(prev => ({
+        balance: prev.balance - totalCost,
+        positions: [...prev.positions, {
+          symbol: selectedAsset.symbol,
+          name: selectedAsset.name,
+          amount: amount,
+          avgPrice: selectedAsset.price,
+          buyDate: new Date().toISOString()
+        }]
+      }));
+    }
+
+    showNotification(`${amount} ${selectedAsset.symbol} წარმატებით შეიძინეთ!`);
+    setShowBuyModal(false);
+    setBuyAmount('');
+  };
+
+  // Toggle watchlist
+  const toggleWatchlist = (asset) => {
+    const isInWatchlist = watchlist.some(w => w.symbol === asset.symbol);
+
+    if (isInWatchlist) {
+      setWatchlist(prev => prev.filter(w => w.symbol !== asset.symbol));
+      showNotification(`${asset.symbol} წაიშალა თვალყურის სიიდან`);
+    } else {
+      setWatchlist(prev => [...prev, {
+        symbol: asset.symbol,
+        name: asset.name,
+        addedAt: new Date().toISOString(),
+        targetPrice: asset.target
+      }]);
+      showNotification(`${asset.symbol} დაემატა თვალყურის სიაში`);
+    }
+  };
+
   const getScoreColor = (score) => {
     if (score >= 8.5) return 'text-green-400';
     if (score >= 7) return 'text-yellow-400';
@@ -80,21 +177,50 @@ export default function AIScout() {
     }
   };
 
+  const isInWatchlist = (symbol) => watchlist.some(w => w.symbol === symbol);
+
+  // Calculate portfolio value
+  const portfolioValue = useMemo(() => {
+    const positionsValue = portfolio.positions.reduce((sum, pos) => {
+      const currentAsset = mockAssets.find(a => a.symbol === pos.symbol);
+      return sum + (currentAsset ? currentAsset.price * pos.amount : pos.avgPrice * pos.amount);
+    }, 0);
+    return portfolio.balance + positionsValue;
+  }, [portfolio]);
+
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      {/* Notification */}
+      {notification && (
+        <div className={`fixed top-20 right-4 z-50 px-6 py-3 rounded-lg shadow-lg ${
+          notification.type === 'error' ? 'bg-red-500' : 'bg-green-500'
+        } text-white font-medium animate-pulse`}>
+          {notification.message}
+        </div>
+      )}
+
+      {/* Header with Portfolio Summary */}
+      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-white flex items-center gap-3">
-            AI სკაუტი
-          </h1>
+          <h1 className="text-3xl font-bold text-white">AI სკაუტი</h1>
           <p className="text-gray-400 mt-1">ავტონომიური საინვესტიციო რადარი - 24/7 ბაზრის სკანირება</p>
         </div>
-        {lastScan && (
-          <div className="text-sm text-gray-500">
-            ბოლო სკანირება: {lastScan.toLocaleTimeString('ka-GE')}
+
+        {/* Mini Portfolio */}
+        <div className="flex gap-4">
+          <div className="bg-gray-800 border border-gray-700 rounded-lg px-4 py-2">
+            <p className="text-xs text-gray-400">პორტფელი</p>
+            <p className="text-lg font-bold text-white">${portfolioValue.toLocaleString(undefined, {maximumFractionDigits: 2})}</p>
           </div>
-        )}
+          <div className="bg-gray-800 border border-gray-700 rounded-lg px-4 py-2">
+            <p className="text-xs text-gray-400">ბალანსი</p>
+            <p className="text-lg font-bold text-green-400">${portfolio.balance.toLocaleString(undefined, {maximumFractionDigits: 2})}</p>
+          </div>
+          <div className="bg-gray-800 border border-gray-700 rounded-lg px-4 py-2">
+            <p className="text-xs text-gray-400">თვალყური</p>
+            <p className="text-lg font-bold text-blue-400">{watchlist.length}</p>
+          </div>
+        </div>
       </div>
 
       {/* Search & Filters */}
@@ -219,16 +345,22 @@ export default function AIScout() {
           <h3 className="text-lg font-semibold text-white">
             AI მოხსენება - TOP {results.length} შედეგი
           </h3>
-          <span className="text-sm text-gray-400">
-            სკანირებული: 10,000+ აქტივი
-          </span>
+          <div className="flex items-center gap-4">
+            {lastScan && (
+              <span className="text-sm text-gray-400">
+                ბოლო სკანირება: {lastScan.toLocaleTimeString('ka-GE')}
+              </span>
+            )}
+            <span className="text-sm text-gray-400">
+              სკანირებული: 10,000+ აქტივი
+            </span>
+          </div>
         </div>
 
         {results.length === 0 ? (
           <div className="text-center py-12 text-gray-400">
             <p className="text-4xl mb-4">🔍</p>
             <p>ფილტრებით შესაბამისი აქტივი ვერ მოიძებნა</p>
-            <p className="text-sm mt-2">სცადეთ ფილტრების შემსუბუქება</p>
           </div>
         ) : (
           <div className="space-y-4">
@@ -249,6 +381,9 @@ export default function AIScout() {
                         <span className={`text-sm ${asset.change >= 0 ? 'text-green-400' : 'text-red-400'}`}>
                           {asset.change >= 0 ? '+' : ''}{asset.change}%
                         </span>
+                        {isInWatchlist(asset.symbol) && (
+                          <span className="text-yellow-400">⭐</span>
+                        )}
                       </div>
                       <p className="text-sm text-gray-400">{asset.name}</p>
                     </div>
@@ -300,7 +435,29 @@ export default function AIScout() {
                       </div>
                     </div>
 
-                    <div className="bg-gray-800 rounded-lg p-4">
+                    {/* Target & Stop Loss */}
+                    <div className="grid grid-cols-2 gap-4 mb-4">
+                      <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-3">
+                        <p className="text-xs text-gray-400">სამიზნე ფასი</p>
+                        <p className="text-lg font-semibold text-green-400">
+                          ${asset.target.toLocaleString()}
+                          <span className="text-sm ml-2">
+                            (+{((asset.target - asset.price) / asset.price * 100).toFixed(1)}%)
+                          </span>
+                        </p>
+                      </div>
+                      <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-3">
+                        <p className="text-xs text-gray-400">Stop-Loss</p>
+                        <p className="text-lg font-semibold text-red-400">
+                          ${asset.stopLoss.toLocaleString()}
+                          <span className="text-sm ml-2">
+                            ({((asset.stopLoss - asset.price) / asset.price * 100).toFixed(1)}%)
+                          </span>
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="bg-gray-800 rounded-lg p-4 mb-4">
                       <p className="text-sm text-gray-400 mb-2">AI-ს ანალიზი:</p>
                       <p className="text-gray-300">
                         {asset.recommendation === 'buy' && (
@@ -308,12 +465,14 @@ export default function AIScout() {
                             <span className="text-green-400 font-medium">{asset.symbol}</span> აჩვენებს ძლიერ ყიდვის სიგნალებს.
                             RSI={asset.rsi} მიუთითებს {asset.rsi < 40 ? 'oversold მდგომარეობაზე' : 'ჯანსაღ დონეზე'},
                             სენტიმენტი {asset.sentiment}% დადებითია. მოცულობა საშუალოზე {asset.volume > 100 ? 'მაღალია' : 'დაბალია'}.
+                            <span className="text-green-400"> სამიზნე: ${asset.target}</span>,
+                            <span className="text-red-400"> Stop-Loss: ${asset.stopLoss}</span>.
                           </>
                         )}
                         {asset.recommendation === 'hold' && (
                           <>
                             <span className="text-yellow-400 font-medium">{asset.symbol}</span> ნეიტრალურ ზონაშია.
-                            დაელოდეთ უკეთეს შესვლის წერტილს ან დამატებით კონფირმაციას.
+                            დაელოდეთ უკეთეს შესვლის წერტილს. RSI={asset.rsi}, სენტიმენტი {asset.sentiment}%.
                           </>
                         )}
                         {asset.recommendation === 'sell' && (
@@ -324,14 +483,36 @@ export default function AIScout() {
                       </p>
                     </div>
 
-                    <div className="flex gap-3 mt-4 flex-wrap">
-                      <button className="flex-1 min-w-[140px] bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg font-medium transition-colors">
+                    <div className="flex gap-3 flex-wrap">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setShowBuyModal(true);
+                        }}
+                        className="flex-1 min-w-[140px] bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg font-medium transition-colors"
+                      >
                         ვირტუალური ყიდვა
                       </button>
-                      <button className="flex-1 min-w-[140px] bg-gray-600 hover:bg-gray-500 text-white py-2 rounded-lg font-medium transition-colors">
-                        თვალყურის დევნება
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toggleWatchlist(asset);
+                        }}
+                        className={`flex-1 min-w-[140px] py-2 rounded-lg font-medium transition-colors ${
+                          isInWatchlist(asset.symbol)
+                            ? 'bg-yellow-600 hover:bg-yellow-700 text-white'
+                            : 'bg-gray-600 hover:bg-gray-500 text-white'
+                        }`}
+                      >
+                        {isInWatchlist(asset.symbol) ? '⭐ სიიდან წაშლა' : 'თვალყურის დევნება'}
                       </button>
-                      <button className="flex-1 min-w-[140px] bg-gray-600 hover:bg-gray-500 text-white py-2 rounded-lg font-medium transition-colors">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setShowAnalysisModal(true);
+                        }}
+                        className="flex-1 min-w-[140px] bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-medium transition-colors"
+                      >
                         სრული ანალიზი
                       </button>
                     </div>
@@ -361,11 +542,190 @@ export default function AIScout() {
           <p className="text-xs text-gray-500">ბოლო 30 დღე</p>
         </div>
         <div className="bg-gray-800 border border-gray-700 rounded-xl p-4">
-          <p className="text-gray-400 text-sm">შემდეგი სკანი</p>
-          <p className="text-2xl font-bold text-yellow-400">ავტო</p>
-          <p className="text-xs text-gray-500">ყოველ საათში</p>
+          <p className="text-gray-400 text-sm">პოზიციები</p>
+          <p className="text-2xl font-bold text-purple-400">{portfolio.positions.length}</p>
+          <p className="text-xs text-gray-500">აქტიური</p>
         </div>
       </div>
+
+      {/* Buy Modal */}
+      {showBuyModal && selectedAsset && (
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4" onClick={() => setShowBuyModal(false)}>
+          <div className="bg-gray-800 border border-gray-700 rounded-xl p-6 max-w-md w-full" onClick={e => e.stopPropagation()}>
+            <h3 className="text-xl font-bold text-white mb-4">
+              ვირტუალური ყიდვა - {selectedAsset.symbol}
+            </h3>
+
+            <div className="space-y-4">
+              <div className="flex justify-between text-sm">
+                <span className="text-gray-400">მიმდინარე ფასი:</span>
+                <span className="text-white font-medium">${selectedAsset.price.toLocaleString()}</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-gray-400">ხელმისაწვდომი ბალანსი:</span>
+                <span className="text-green-400 font-medium">${portfolio.balance.toLocaleString()}</span>
+              </div>
+
+              <div>
+                <label className="text-sm text-gray-400 block mb-1">რაოდენობა</label>
+                <input
+                  type="number"
+                  value={buyAmount}
+                  onChange={(e) => setBuyAmount(e.target.value)}
+                  placeholder={`მაქს: ${Math.floor(portfolio.balance / selectedAsset.price)}`}
+                  className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white"
+                />
+              </div>
+
+              {buyAmount && (
+                <div className="flex justify-between text-sm bg-gray-700/50 p-3 rounded-lg">
+                  <span className="text-gray-400">ჯამი:</span>
+                  <span className="text-white font-bold">${(parseFloat(buyAmount || 0) * selectedAsset.price).toLocaleString()}</span>
+                </div>
+              )}
+
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setShowBuyModal(false)}
+                  className="flex-1 bg-gray-600 hover:bg-gray-500 text-white py-2 rounded-lg font-medium"
+                >
+                  გაუქმება
+                </button>
+                <button
+                  onClick={handleBuy}
+                  className="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg font-medium"
+                >
+                  ყიდვა
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Analysis Modal */}
+      {showAnalysisModal && selectedAsset && (
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4 overflow-y-auto" onClick={() => setShowAnalysisModal(false)}>
+          <div className="bg-gray-800 border border-gray-700 rounded-xl p-6 max-w-2xl w-full my-8" onClick={e => e.stopPropagation()}>
+            <div className="flex justify-between items-start mb-4">
+              <div>
+                <h3 className="text-2xl font-bold text-white">{selectedAsset.symbol}</h3>
+                <p className="text-gray-400">{selectedAsset.name}</p>
+              </div>
+              <button onClick={() => setShowAnalysisModal(false)} className="text-gray-400 hover:text-white text-2xl">×</button>
+            </div>
+
+            <div className="space-y-4">
+              {/* Price Info */}
+              <div className="grid grid-cols-3 gap-4">
+                <div className="bg-gray-700/50 rounded-lg p-4 text-center">
+                  <p className="text-sm text-gray-400">მიმდინარე ფასი</p>
+                  <p className="text-2xl font-bold text-white">${selectedAsset.price.toLocaleString()}</p>
+                  <p className={`text-sm ${selectedAsset.change >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+                    {selectedAsset.change >= 0 ? '+' : ''}{selectedAsset.change}%
+                  </p>
+                </div>
+                <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-4 text-center">
+                  <p className="text-sm text-gray-400">სამიზნე</p>
+                  <p className="text-2xl font-bold text-green-400">${selectedAsset.target.toLocaleString()}</p>
+                  <p className="text-sm text-green-400">
+                    +{((selectedAsset.target - selectedAsset.price) / selectedAsset.price * 100).toFixed(1)}%
+                  </p>
+                </div>
+                <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4 text-center">
+                  <p className="text-sm text-gray-400">Stop-Loss</p>
+                  <p className="text-2xl font-bold text-red-400">${selectedAsset.stopLoss.toLocaleString()}</p>
+                  <p className="text-sm text-red-400">
+                    {((selectedAsset.stopLoss - selectedAsset.price) / selectedAsset.price * 100).toFixed(1)}%
+                  </p>
+                </div>
+              </div>
+
+              {/* Technical Analysis */}
+              <div className="bg-gray-700/50 rounded-lg p-4">
+                <h4 className="font-semibold text-white mb-3">ტექნიკური ანალიზი</h4>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">RSI (14):</span>
+                    <span className={asset.rsi < 30 ? 'text-green-400' : asset.rsi > 70 ? 'text-red-400' : 'text-yellow-400'}>
+                      {selectedAsset.rsi} {selectedAsset.rsi < 30 ? '(Oversold)' : selectedAsset.rsi > 70 ? '(Overbought)' : '(ნორმალური)'}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">მოცულობა:</span>
+                    <span className={selectedAsset.volume > 150 ? 'text-green-400' : 'text-gray-300'}>
+                      {selectedAsset.volume}% საშუალოსი
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">ტრენდი:</span>
+                    <span className="text-green-400">აღმავალი</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">MACD:</span>
+                    <span className="text-green-400">ყიდვის სიგნალი</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Sentiment */}
+              <div className="bg-gray-700/50 rounded-lg p-4">
+                <h4 className="font-semibold text-white mb-3">სენტიმენტის ანალიზი</h4>
+                <div className="mb-2">
+                  <div className="flex justify-between text-sm mb-1">
+                    <span className="text-gray-400">საერთო სენტიმენტი</span>
+                    <span className="text-white">{selectedAsset.sentiment}%</span>
+                  </div>
+                  <div className="w-full bg-gray-600 rounded-full h-2">
+                    <div
+                      className={`h-2 rounded-full ${selectedAsset.sentiment > 70 ? 'bg-green-500' : selectedAsset.sentiment > 50 ? 'bg-yellow-500' : 'bg-red-500'}`}
+                      style={{width: `${selectedAsset.sentiment}%`}}
+                    ></div>
+                  </div>
+                </div>
+                <div className="grid grid-cols-3 gap-2 text-sm">
+                  <div className="text-center">
+                    <p className="text-gray-400">Reddit</p>
+                    <p className="text-green-400">{selectedAsset.sentiment + 5}%</p>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-gray-400">Twitter</p>
+                    <p className="text-yellow-400">{selectedAsset.sentiment - 3}%</p>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-gray-400">ახალი ამბები</p>
+                    <p className="text-green-400">{selectedAsset.sentiment + 2}%</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* AI Score */}
+              <div className="bg-gray-700/50 rounded-lg p-4">
+                <h4 className="font-semibold text-white mb-3">AI შეფასება</h4>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-4xl font-bold text-green-400">{selectedAsset.score}/10</p>
+                    <p className="text-gray-400">საერთო ქულა</p>
+                  </div>
+                  <div className={`px-6 py-3 rounded-lg text-lg font-bold ${getRecommendationStyle(selectedAsset.recommendation)}`}>
+                    {getRecommendationText(selectedAsset.recommendation).toUpperCase()}
+                  </div>
+                </div>
+              </div>
+
+              <button
+                onClick={() => {
+                  setShowAnalysisModal(false);
+                  setShowBuyModal(true);
+                }}
+                className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-medium"
+              >
+                ვირტუალური ყიდვა
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
