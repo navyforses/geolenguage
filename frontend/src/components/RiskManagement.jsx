@@ -1,5 +1,14 @@
 import React, { useState, useMemo } from 'react';
-import { Calculator, Shield, Target, TrendingDown, DollarSign, Percent, AlertTriangle, Info } from 'lucide-react';
+import {
+  Calculator,
+  Shield,
+  Target,
+  TrendingDown,
+  DollarSign,
+  Percent,
+  AlertTriangle,
+  Info
+} from 'lucide-react';
 
 /**
  * რისკის მართვის ინსტრუმენტები
@@ -11,7 +20,7 @@ export default function RiskManagement() {
     entryPrice: '',
     stopPrice: '',
     positionSize: '',
-    direction: 'long' // long or short
+    direction: 'long'
   });
 
   // Position Size Calculator State
@@ -109,21 +118,21 @@ export default function RiskManagement() {
       {/* სათაური */}
       <div>
         <h1 className="text-3xl font-bold text-white flex items-center gap-3">
-          <Shield className="w-8 h-8 text-primary-400" />
+          <Shield className="w-8 h-8 text-blue-400" />
           რისკის მართვა
         </h1>
-        <p className="text-dark-400 mt-2">
+        <p className="text-gray-400 mt-2">
           პროფესიონალური ინსტრუმენტები თქვენი კაპიტალის დასაცავად
         </p>
       </div>
 
       {/* რჩევების ბანერი */}
-      <div className="bg-primary-500/10 border border-primary-500/30 rounded-lg p-4">
+      <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-4">
         <div className="flex items-start gap-3">
-          <Info className="w-5 h-5 text-primary-400 mt-0.5" />
+          <Info className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />
           <div>
-            <h4 className="font-medium text-primary-300">რისკის მართვის ოქროს წესები</h4>
-            <ul className="text-sm text-dark-300 mt-2 space-y-1">
+            <h4 className="font-medium text-blue-300">რისკის მართვის ოქროს წესები</h4>
+            <ul className="text-sm text-gray-300 mt-2 space-y-1">
               <li>• არასოდეს რისკავთ თქვენი კაპიტალის 1-2%-ზე მეტს ერთ ტრეიდში</li>
               <li>• ყოველთვის გამოიყენეთ stop-loss შეკვეთები</li>
               <li>• მინიმალური Risk/Reward თანაფარდობა უნდა იყოს 1:2</li>
@@ -136,28 +145,28 @@ export default function RiskManagement() {
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
 
         {/* Stop-Loss კალკულატორი */}
-        <div className="card">
+        <div className="bg-gray-800 border border-gray-700 rounded-xl p-6">
           <div className="flex items-center gap-2 mb-4">
             <div className="w-10 h-10 rounded-lg bg-red-500/20 flex items-center justify-center">
               <TrendingDown className="w-5 h-5 text-red-400" />
             </div>
             <div>
               <h3 className="text-lg font-semibold text-white">Stop-Loss კალკულატორი</h3>
-              <p className="text-sm text-dark-400">გამოთვალეთ პოტენციური ზარალი</p>
+              <p className="text-sm text-gray-400">გამოთვალეთ პოტენციური ზარალი</p>
             </div>
           </div>
 
           <div className="space-y-4">
             {/* Direction Toggle */}
             <div>
-              <label className="text-sm text-dark-400 block mb-2">პოზიციის მიმართულება</label>
+              <label className="text-sm text-gray-400 block mb-2">პოზიციის მიმართულება</label>
               <div className="flex gap-2">
                 <button
                   onClick={() => setStopLoss(s => ({ ...s, direction: 'long' }))}
                   className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-colors ${
                     stopLoss.direction === 'long'
                       ? 'bg-green-500/20 text-green-400 border border-green-500/50'
-                      : 'bg-dark-700 text-dark-400 border border-dark-600'
+                      : 'bg-gray-700 text-gray-400 border border-gray-600'
                   }`}
                 >
                   Long (ყიდვა)
@@ -167,7 +176,7 @@ export default function RiskManagement() {
                   className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-colors ${
                     stopLoss.direction === 'short'
                       ? 'bg-red-500/20 text-red-400 border border-red-500/50'
-                      : 'bg-dark-700 text-dark-400 border border-dark-600'
+                      : 'bg-gray-700 text-gray-400 border border-gray-600'
                   }`}
                 >
                   Short (გაყიდვა)
@@ -176,40 +185,40 @@ export default function RiskManagement() {
             </div>
 
             <div>
-              <label className="text-sm text-dark-400 block mb-1">შესვლის ფასი ($)</label>
+              <label className="text-sm text-gray-400 block mb-1">შესვლის ფასი ($)</label>
               <input
                 type="number"
                 value={stopLoss.entryPrice}
                 onChange={(e) => setStopLoss(s => ({ ...s, entryPrice: e.target.value }))}
-                className="input w-full"
+                className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
                 placeholder="მაგ: 150.00"
               />
             </div>
 
             <div>
-              <label className="text-sm text-dark-400 block mb-1">Stop-Loss ფასი ($)</label>
+              <label className="text-sm text-gray-400 block mb-1">Stop-Loss ფასი ($)</label>
               <input
                 type="number"
                 value={stopLoss.stopPrice}
                 onChange={(e) => setStopLoss(s => ({ ...s, stopPrice: e.target.value }))}
-                className="input w-full"
+                className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
                 placeholder="მაგ: 145.00"
               />
             </div>
 
             <div>
-              <label className="text-sm text-dark-400 block mb-1">აქციების რაოდენობა</label>
+              <label className="text-sm text-gray-400 block mb-1">აქციების რაოდენობა</label>
               <input
                 type="number"
                 value={stopLoss.positionSize}
                 onChange={(e) => setStopLoss(s => ({ ...s, positionSize: e.target.value }))}
-                className="input w-full"
+                className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
                 placeholder="მაგ: 100"
               />
             </div>
 
             {stopLossResult && (
-              <div className={`p-4 rounded-lg ${stopLossResult.isValid ? 'bg-dark-700' : 'bg-red-500/10 border border-red-500/30'}`}>
+              <div className={`p-4 rounded-lg ${stopLossResult.isValid ? 'bg-gray-700' : 'bg-red-500/10 border border-red-500/30'}`}>
                 {!stopLossResult.isValid && (
                   <div className="flex items-center gap-2 text-red-400 text-sm mb-3">
                     <AlertTriangle className="w-4 h-4" />
@@ -218,15 +227,15 @@ export default function RiskManagement() {
                 )}
                 <div className="grid grid-cols-2 gap-3 text-sm">
                   <div>
-                    <span className="text-dark-400">ფასის სხვაობა:</span>
+                    <span className="text-gray-400">ფასის სხვაობა:</span>
                     <p className="text-white font-medium">${stopLossResult.priceDiff}</p>
                   </div>
                   <div>
-                    <span className="text-dark-400">პროცენტი:</span>
+                    <span className="text-gray-400">პროცენტი:</span>
                     <p className="text-white font-medium">{stopLossResult.lossPercent}%</p>
                   </div>
-                  <div className="col-span-2 pt-2 border-t border-dark-600">
-                    <span className="text-dark-400">პოტენციური ზარალი:</span>
+                  <div className="col-span-2 pt-2 border-t border-gray-600">
+                    <span className="text-gray-400">პოტენციური ზარალი:</span>
                     <p className="text-2xl font-bold text-red-400">${stopLossResult.totalLoss}</p>
                   </div>
                 </div>
@@ -236,31 +245,31 @@ export default function RiskManagement() {
         </div>
 
         {/* პოზიციის ზომის კალკულატორი */}
-        <div className="card">
+        <div className="bg-gray-800 border border-gray-700 rounded-xl p-6">
           <div className="flex items-center gap-2 mb-4">
             <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center">
               <Calculator className="w-5 h-5 text-blue-400" />
             </div>
             <div>
               <h3 className="text-lg font-semibold text-white">პოზიციის ზომა</h3>
-              <p className="text-sm text-dark-400">რამდენი აქცია იყიდოთ</p>
+              <p className="text-sm text-gray-400">რამდენი აქცია იყიდოთ</p>
             </div>
           </div>
 
           <div className="space-y-4">
             <div>
-              <label className="text-sm text-dark-400 block mb-1">ანგარიშის ზომა ($)</label>
+              <label className="text-sm text-gray-400 block mb-1">ანგარიშის ზომა ($)</label>
               <input
                 type="number"
                 value={positionSize.accountSize}
                 onChange={(e) => setPositionSize(s => ({ ...s, accountSize: e.target.value }))}
-                className="input w-full"
+                className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
                 placeholder="მაგ: 10000"
               />
             </div>
 
             <div>
-              <label className="text-sm text-dark-400 block mb-1">რისკი (%)</label>
+              <label className="text-sm text-gray-400 block mb-1">რისკი (%)</label>
               <div className="flex gap-2">
                 {['1', '2', '3', '5'].map(val => (
                   <button
@@ -268,8 +277,8 @@ export default function RiskManagement() {
                     onClick={() => setPositionSize(s => ({ ...s, riskPercent: val }))}
                     className={`px-3 py-1.5 rounded text-sm ${
                       positionSize.riskPercent === val
-                        ? 'bg-primary-500 text-white'
-                        : 'bg-dark-700 text-dark-300'
+                        ? 'bg-blue-500 text-white'
+                        : 'bg-gray-700 text-gray-300'
                     }`}
                   >
                     {val}%
@@ -279,55 +288,55 @@ export default function RiskManagement() {
                   type="number"
                   value={positionSize.riskPercent}
                   onChange={(e) => setPositionSize(s => ({ ...s, riskPercent: e.target.value }))}
-                  className="input flex-1 text-center"
+                  className="flex-1 bg-gray-700 border border-gray-600 rounded-lg px-3 py-1.5 text-white text-center focus:outline-none focus:border-blue-500"
                   placeholder="%"
                 />
               </div>
             </div>
 
             <div>
-              <label className="text-sm text-dark-400 block mb-1">შესვლის ფასი ($)</label>
+              <label className="text-sm text-gray-400 block mb-1">შესვლის ფასი ($)</label>
               <input
                 type="number"
                 value={positionSize.entryPrice}
                 onChange={(e) => setPositionSize(s => ({ ...s, entryPrice: e.target.value }))}
-                className="input w-full"
+                className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
                 placeholder="მაგ: 150.00"
               />
             </div>
 
             <div>
-              <label className="text-sm text-dark-400 block mb-1">Stop-Loss ფასი ($)</label>
+              <label className="text-sm text-gray-400 block mb-1">Stop-Loss ფასი ($)</label>
               <input
                 type="number"
                 value={positionSize.stopPrice}
                 onChange={(e) => setPositionSize(s => ({ ...s, stopPrice: e.target.value }))}
-                className="input w-full"
+                className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
                 placeholder="მაგ: 145.00"
               />
             </div>
 
             {positionSizeResult && (
-              <div className="p-4 rounded-lg bg-dark-700">
+              <div className="p-4 rounded-lg bg-gray-700">
                 <div className="grid grid-cols-2 gap-3 text-sm">
                   <div>
-                    <span className="text-dark-400">რისკის თანხა:</span>
+                    <span className="text-gray-400">რისკის თანხა:</span>
                     <p className="text-white font-medium">${positionSizeResult.riskAmount}</p>
                   </div>
                   <div>
-                    <span className="text-dark-400">Stop დისტანცია:</span>
+                    <span className="text-gray-400">Stop დისტანცია:</span>
                     <p className="text-white font-medium">${positionSizeResult.stopDistance}</p>
                   </div>
-                  <div className="col-span-2 pt-2 border-t border-dark-600">
-                    <span className="text-dark-400">რეკომენდებული აქციები:</span>
+                  <div className="col-span-2 pt-2 border-t border-gray-600">
+                    <span className="text-gray-400">რეკომენდებული აქციები:</span>
                     <p className="text-2xl font-bold text-blue-400">{positionSizeResult.shares} ცალი</p>
                   </div>
                   <div>
-                    <span className="text-dark-400">პოზიციის ღირებულება:</span>
+                    <span className="text-gray-400">პოზიციის ღირებულება:</span>
                     <p className="text-white font-medium">${positionSizeResult.totalPosition}</p>
                   </div>
                   <div>
-                    <span className="text-dark-400">რეალური რისკი:</span>
+                    <span className="text-gray-400">რეალური რისკი:</span>
                     <p className="text-white font-medium">${positionSizeResult.actualRisk}</p>
                   </div>
                 </div>
@@ -337,64 +346,64 @@ export default function RiskManagement() {
         </div>
 
         {/* Risk/Reward კალკულატორი */}
-        <div className="card">
+        <div className="bg-gray-800 border border-gray-700 rounded-xl p-6">
           <div className="flex items-center gap-2 mb-4">
             <div className="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center">
               <Target className="w-5 h-5 text-green-400" />
             </div>
             <div>
               <h3 className="text-lg font-semibold text-white">რისკი / მოგება</h3>
-              <p className="text-sm text-dark-400">R:R თანაფარდობის გამოთვლა</p>
+              <p className="text-sm text-gray-400">R:R თანაფარდობის გამოთვლა</p>
             </div>
           </div>
 
           <div className="space-y-4">
             <div>
-              <label className="text-sm text-dark-400 block mb-1">შესვლის ფასი ($)</label>
+              <label className="text-sm text-gray-400 block mb-1">შესვლის ფასი ($)</label>
               <input
                 type="number"
                 value={riskReward.entryPrice}
                 onChange={(e) => setRiskReward(s => ({ ...s, entryPrice: e.target.value }))}
-                className="input w-full"
+                className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
                 placeholder="მაგ: 150.00"
               />
             </div>
 
             <div>
-              <label className="text-sm text-dark-400 block mb-1">Stop-Loss ფასი ($)</label>
+              <label className="text-sm text-gray-400 block mb-1">Stop-Loss ფასი ($)</label>
               <input
                 type="number"
                 value={riskReward.stopPrice}
                 onChange={(e) => setRiskReward(s => ({ ...s, stopPrice: e.target.value }))}
-                className="input w-full"
+                className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
                 placeholder="მაგ: 145.00"
               />
             </div>
 
             <div>
-              <label className="text-sm text-dark-400 block mb-1">მიზნობრივი ფასი ($)</label>
+              <label className="text-sm text-gray-400 block mb-1">მიზნობრივი ფასი ($)</label>
               <input
                 type="number"
                 value={riskReward.targetPrice}
                 onChange={(e) => setRiskReward(s => ({ ...s, targetPrice: e.target.value }))}
-                className="input w-full"
+                className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
                 placeholder="მაგ: 165.00"
               />
             </div>
 
             {riskRewardResult && (
-              <div className="p-4 rounded-lg bg-dark-700">
+              <div className="p-4 rounded-lg bg-gray-700">
                 <div className="grid grid-cols-2 gap-3 text-sm">
                   <div>
-                    <span className="text-dark-400">რისკი:</span>
+                    <span className="text-gray-400">რისკი:</span>
                     <p className="text-red-400 font-medium">${riskRewardResult.risk} ({riskRewardResult.riskPercent}%)</p>
                   </div>
                   <div>
-                    <span className="text-dark-400">მოგება:</span>
+                    <span className="text-gray-400">მოგება:</span>
                     <p className="text-green-400 font-medium">${riskRewardResult.reward} ({riskRewardResult.rewardPercent}%)</p>
                   </div>
-                  <div className="col-span-2 pt-2 border-t border-dark-600">
-                    <span className="text-dark-400">R:R თანაფარდობა:</span>
+                  <div className="col-span-2 pt-2 border-t border-gray-600">
+                    <span className="text-gray-400">R:R თანაფარდობა:</span>
                     <div className="flex items-center gap-2 mt-1">
                       <p className={`text-2xl font-bold ${riskRewardResult.isGood ? 'text-green-400' : 'text-yellow-400'}`}>
                         1 : {riskRewardResult.ratio}
@@ -420,7 +429,7 @@ export default function RiskManagement() {
                       style={{ width: `${(parseFloat(riskRewardResult.ratio) * 100) / (1 + parseFloat(riskRewardResult.ratio))}%` }}
                     />
                   </div>
-                  <div className="flex justify-between text-xs text-dark-400 mt-1">
+                  <div className="flex justify-between text-xs text-gray-400 mt-1">
                     <span>რისკი</span>
                     <span>მოგება</span>
                   </div>
@@ -433,41 +442,41 @@ export default function RiskManagement() {
 
       {/* დამატებითი ინფო */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="card bg-dark-800/50">
+        <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-6">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-lg bg-green-500/20 flex items-center justify-center">
               <Percent className="w-6 h-6 text-green-400" />
             </div>
             <div>
-              <p className="text-dark-400 text-sm">რეკომენდებული რისკი</p>
+              <p className="text-gray-400 text-sm">რეკომენდებული რისკი</p>
               <p className="text-xl font-bold text-white">1-2%</p>
-              <p className="text-xs text-dark-500">თითო ტრეიდზე</p>
+              <p className="text-xs text-gray-500">თითო ტრეიდზე</p>
             </div>
           </div>
         </div>
 
-        <div className="card bg-dark-800/50">
+        <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-6">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-lg bg-blue-500/20 flex items-center justify-center">
               <Target className="w-6 h-6 text-blue-400" />
             </div>
             <div>
-              <p className="text-dark-400 text-sm">მინიმალური R:R</p>
+              <p className="text-gray-400 text-sm">მინიმალური R:R</p>
               <p className="text-xl font-bold text-white">1:2</p>
-              <p className="text-xs text-dark-500">ან უფრო მეტი</p>
+              <p className="text-xs text-gray-500">ან უფრო მეტი</p>
             </div>
           </div>
         </div>
 
-        <div className="card bg-dark-800/50">
+        <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-6">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-lg bg-purple-500/20 flex items-center justify-center">
               <DollarSign className="w-6 h-6 text-purple-400" />
             </div>
             <div>
-              <p className="text-dark-400 text-sm">მაქს. პოზიცია</p>
+              <p className="text-gray-400 text-sm">მაქს. პოზიცია</p>
               <p className="text-xl font-bold text-white">10-20%</p>
-              <p className="text-xs text-dark-500">კაპიტალიდან</p>
+              <p className="text-xs text-gray-500">კაპიტალიდან</p>
             </div>
           </div>
         </div>
