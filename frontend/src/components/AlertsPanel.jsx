@@ -7,9 +7,9 @@ const mockAlerts = [
     type: 'price_change',
     severity: 'medium',
     platform: 'Google',
-    title: 'GOOGL up 3.2% on AI announcements',
-    description: 'Alphabet stock rose following announcements of new AI features',
-    time: '2 hours ago',
+    title: 'GOOGL გაიზარდა 3.2%-ით AI განცხადებების გამო',
+    description: 'Alphabet-ის აქცია გაიზარდა ახალი AI ფუნქციების გამოცხადების შემდეგ',
+    time: '2 საათის წინ',
     isRead: false
   },
   {
@@ -17,9 +17,9 @@ const mockAlerts = [
     type: 'trend_shift',
     severity: 'high',
     platform: 'ChatGPT',
-    title: 'ChatGPT trending globally',
-    description: 'Significant increase in search interest and social media mentions',
-    time: '4 hours ago',
+    title: 'ChatGPT ტრენდულია გლობალურად',
+    description: 'მნიშვნელოვანი ზრდა ძიების ინტერესში და სოციალური მედიის ხსენებებში',
+    time: '4 საათის წინ',
     isRead: false
   },
   {
@@ -27,19 +27,19 @@ const mockAlerts = [
     type: 'risk_warning',
     severity: 'high',
     platform: 'TikTok',
-    title: 'TikTok regulatory concerns',
-    description: 'New legislation proposed that may affect platform operations',
-    time: '6 hours ago',
+    title: 'TikTok რეგულატორული შეშფოთება',
+    description: 'შემოთავაზებულია ახალი კანონმდებლობა, რომელმაც შეიძლება გავლენა მოახდინოს პლატფორმის ოპერაციებზე',
+    time: '6 საათის წინ',
     isRead: true
   },
   {
     id: 4,
     type: 'news',
     severity: 'low',
-    platform: 'Twitter',
-    title: 'X announces new features',
-    description: 'Platform updates include enhanced video capabilities',
-    time: '8 hours ago',
+    platform: 'X (Twitter)',
+    title: 'X აცხადებს ახალ ფუნქციებს',
+    description: 'პლატფორმის განახლებები მოიცავს გაუმჯობესებულ ვიდეო შესაძლებლობებს',
+    time: '8 საათის წინ',
     isRead: true
   }
 ];
@@ -65,8 +65,8 @@ export default function AlertsPanel({ limit = 5, showTitle = true }) {
     <div className="space-y-4">
       {showTitle && (
         <div className="flex items-center justify-between">
-          <h3 className="text-lg font-semibold text-white">Recent Alerts</h3>
-          <span className="badge badge-red">{mockAlerts.filter(a => !a.isRead).length} new</span>
+          <h3 className="text-lg font-semibold text-white">ბოლო შეტყობინებები</h3>
+          <span className="badge badge-red">{mockAlerts.filter(a => !a.isRead).length} ახალი</span>
         </div>
       )}
 
@@ -108,7 +108,7 @@ export default function AlertsPanel({ limit = 5, showTitle = true }) {
       {alerts.length === 0 && (
         <div className="text-center py-8 text-dark-400">
           <AlertTriangle className="w-12 h-12 mx-auto mb-3 opacity-50" />
-          <p>No alerts at this time</p>
+          <p>ამ დროისთვის შეტყობინებები არ არის</p>
         </div>
       )}
     </div>

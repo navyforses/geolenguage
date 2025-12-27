@@ -9,7 +9,7 @@ const generateFeedItems = () => [
     ticker: 'GOOGL',
     value: 175.50,
     change: 1.2,
-    time: 'Just now'
+    time: 'ახლახან'
   },
   {
     id: 2,
@@ -17,7 +17,7 @@ const generateFeedItems = () => [
     platform: 'ChatGPT',
     source: 'Reddit',
     sentiment: 0.85,
-    time: '1 min ago'
+    time: '1 წუთის წინ'
   },
   {
     id: 3,
@@ -25,7 +25,7 @@ const generateFeedItems = () => [
     platform: 'TikTok',
     source: 'HackerNews',
     count: 15,
-    time: '2 min ago'
+    time: '2 წუთის წინ'
   },
   {
     id: 4,
@@ -34,15 +34,15 @@ const generateFeedItems = () => [
     ticker: 'META',
     value: 485.20,
     change: -0.8,
-    time: '3 min ago'
+    time: '3 წუთის წინ'
   },
   {
     id: 5,
     type: 'trend',
     platform: 'YouTube',
-    topic: 'AI Content',
+    topic: 'AI კონტენტი',
     interest: 95,
-    time: '5 min ago'
+    time: '5 წუთის წინ'
   }
 ];
 
@@ -86,11 +86,11 @@ export default function LiveFeed() {
     <div className="card">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-          <h3 className="text-lg font-semibold text-white">Live Feed</h3>
+          <h3 className="text-lg font-semibold text-white">პირდაპირი არხი</h3>
           {isLive && (
             <span className="flex items-center gap-1">
               <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-              <span className="text-xs text-green-400">Live</span>
+              <span className="text-xs text-green-400">ცოცხალი</span>
             </span>
           )}
         </div>
@@ -98,7 +98,7 @@ export default function LiveFeed() {
           onClick={() => setIsLive(!isLive)}
           className={`btn btn-ghost text-sm ${isLive ? 'text-green-400' : 'text-dark-400'}`}
         >
-          {isLive ? 'Pause' : 'Resume'}
+          {isLive ? 'პაუზა' : 'გაგრძელება'}
         </button>
       </div>
 
@@ -134,14 +134,14 @@ export default function LiveFeed() {
                   )}
                   {item.sentiment !== undefined && (
                     <span className={item.sentiment > 0.5 ? 'text-green-400' : 'text-red-400'}>
-                      Sentiment: {(item.sentiment * 100).toFixed(0)}%
+                      სენტიმენტი: {(item.sentiment * 100).toFixed(0)}%
                     </span>
                   )}
                   {item.count !== undefined && (
-                    <span className="text-dark-300">{item.count} mentions</span>
+                    <span className="text-dark-300">{item.count} ხსენება</span>
                   )}
                   {item.interest !== undefined && (
-                    <span className="text-dark-300">Interest: {item.interest}%</span>
+                    <span className="text-dark-300">ინტერესი: {item.interest}%</span>
                   )}
                 </div>
               </div>

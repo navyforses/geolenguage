@@ -207,84 +207,84 @@ class PlatformService {
     getMockMetrics(platform) {
         const mockData = {
             'google': {
-                stock_price: { value: 141.80, change: 2.34, changePercent: 1.68 },
-                market_cap: '1.78T',
-                sentiment: { score: 0.72, label: 'Bullish' },
-                daily_users: '8.5B searches/day',
-                market_share: '91.4%',
-                revenue_growth: '+8.7%'
+                აქციის_ფასი: { value: 141.80, ცვლილება: 2.34, ცვლილება_პროცენტი: 1.68 },
+                საბაზრო_კაპიტალი: '1.78 ტრილიონი',
+                სენტიმენტი: { score: 0.72, label: 'ზრდადი' },
+                დღიური_მომხმარებლები: '8.5 მილიარდი ძიება/დღეში',
+                საბაზრო_წილი: '91.4%',
+                შემოსავლის_ზრდა: '+8.7%'
             },
             'youtube': {
-                stock_price: { value: 141.80, change: 2.34, changePercent: 1.68 },
-                monthly_users: '2.7B',
-                sentiment: { score: 0.58, label: 'Positive' },
-                daily_views: '5B videos/day',
-                creator_payouts: '$50B total',
-                premium_subs: '100M+'
+                აქციის_ფასი: { value: 141.80, ცვლილება: 2.34, ცვლილება_პროცენტი: 1.68 },
+                თვიური_მომხმარებლები: '2.7 მილიარდი',
+                სენტიმენტი: { score: 0.58, label: 'პოზიტიური' },
+                დღიური_ნახვები: '5 მილიარდი ვიდეო/დღეში',
+                კრეატორების_გადახდები: '$50 მილიარდი სულ',
+                პრემიუმ_გამოწერები: '100 მილიონი+'
             },
             'facebook': {
-                stock_price: { value: 594.20, change: -3.15, changePercent: -0.53 },
-                market_cap: '1.51T',
-                sentiment: { score: 0.31, label: 'Neutral' },
-                daily_users: '2.11B DAU',
-                ad_revenue: '$135B/year',
-                engagement: '-2.3% YoY'
+                აქციის_ფასი: { value: 594.20, ცვლილება: -3.15, ცვლილება_პროცენტი: -0.53 },
+                საბაზრო_კაპიტალი: '1.51 ტრილიონი',
+                სენტიმენტი: { score: 0.31, label: 'ნეიტრალური' },
+                დღიური_მომხმარებლები: '2.11 მილიარდი DAU',
+                სარეკლამო_შემოსავალი: '$135 მილიარდი/წელი',
+                ჩართულობა: '-2.3% წლიურად'
             },
             'instagram': {
-                stock_price: { value: 594.20, change: -3.15, changePercent: -0.53 },
-                monthly_users: '2.35B',
-                sentiment: { score: 0.65, label: 'Positive' },
-                stories_daily: '500M users',
-                reels_growth: '+48% YoY',
-                creator_accounts: '200M+'
+                აქციის_ფასი: { value: 594.20, ცვლილება: -3.15, ცვლილება_პროცენტი: -0.53 },
+                თვიური_მომხმარებლები: '2.35 მილიარდი',
+                სენტიმენტი: { score: 0.65, label: 'პოზიტიური' },
+                სტორის_დღიურად: '500 მილიონი მომხმარებელი',
+                reels_ზრდა: '+48% წლიურად',
+                კრეატორ_ანგარიშები: '200 მილიონი+'
             },
             'chatgpt': {
-                monthly_users: '200M+',
-                sentiment: { score: 0.85, label: 'Very Bullish' },
-                api_calls: '100B+/month',
-                enterprise_clients: '92% Fortune 500',
-                growth_rate: '+340% YoY',
-                valuation: '$157B'
+                თვიური_მომხმარებლები: '200 მილიონი+',
+                სენტიმენტი: { score: 0.85, label: 'ძალიან ზრდადი' },
+                api_გამოძახებები: '100 მილიარდი+/თვეში',
+                ენტერპრაიზ_კლიენტები: 'Fortune 500-ის 92%',
+                ზრდის_ტემპი: '+340% წლიურად',
+                შეფასება: '$157 მილიარდი'
             },
             'amazon': {
-                stock_price: { value: 227.10, change: 4.52, changePercent: 2.03 },
-                market_cap: '2.37T',
-                sentiment: { score: 0.61, label: 'Bullish' },
-                prime_members: '200M+',
-                aws_revenue: '$100B/year',
-                market_share: '37.6% e-commerce'
+                აქციის_ფასი: { value: 227.10, ცვლილება: 4.52, ცვლილება_პროცენტი: 2.03 },
+                საბაზრო_კაპიტალი: '2.37 ტრილიონი',
+                სენტიმენტი: { score: 0.61, label: 'ზრდადი' },
+                prime_წევრები: '200 მილიონი+',
+                aws_შემოსავალი: '$100 მილიარდი/წელი',
+                საბაზრო_წილი: '37.6% ელ-კომერცია'
             },
             'twitter': {
-                monthly_users: '611M',
-                sentiment: { score: -0.15, label: 'Mixed' },
-                daily_tweets: '500M',
-                ad_revenue: '-40% YoY',
-                blue_subs: '1.3M',
-                valuation: '$19B (private)'
+                თვიური_მომხმარებლები: '611 მილიონი',
+                სენტიმენტი: { score: -0.15, label: 'შერეული' },
+                დღიური_ტვიტები: '500 მილიონი',
+                სარეკლამო_შემოსავალი: '-40% წლიურად',
+                blue_გამოწერები: '1.3 მილიონი',
+                შეფასება: '$19 მილიარდი (კერძო)'
             },
             'tiktok': {
-                monthly_users: '1.58B',
-                sentiment: { score: 0.78, label: 'Very Positive' },
-                daily_time: '95 min avg',
-                creator_fund: '$2B',
-                us_ban_risk: 'High',
-                growth_rate: '+16% YoY'
+                თვიური_მომხმარებლები: '1.58 მილიარდი',
+                სენტიმენტი: { score: 0.78, label: 'ძალიან პოზიტიური' },
+                დღიური_დრო: '95 წუთი საშუალოდ',
+                კრეატორ_ფონდი: '$2 მილიარდი',
+                აშშ_აკრძალვის_რისკი: 'მაღალი',
+                ზრდის_ტემპი: '+16% წლიურად'
             },
             'reddit': {
-                stock_price: { value: 168.45, change: 8.23, changePercent: 5.14 },
-                market_cap: '$28.5B',
-                sentiment: { score: 0.52, label: 'Positive' },
-                daily_users: '82M DAU',
-                communities: '100K+ active',
-                ipo_performance: '+220% since IPO'
+                აქციის_ფასი: { value: 168.45, ცვლილება: 8.23, ცვლილება_პროცენტი: 5.14 },
+                საბაზრო_კაპიტალი: '$28.5 მილიარდი',
+                სენტიმენტი: { score: 0.52, label: 'პოზიტიური' },
+                დღიური_მომხმარებლები: '82 მილიონი DAU',
+                საზოგადოებები: '100 ათასი+ აქტიური',
+                ipo_შედეგი: '+220% IPO-დან'
             },
             'linkedin': {
-                stock_price: { value: 446.30, change: 1.89, changePercent: 0.43 },
-                monthly_users: '1B',
-                sentiment: { score: 0.44, label: 'Neutral' },
-                job_posts: '15M active',
-                premium_revenue: '$1.7B/quarter',
-                engagement: '+22% YoY'
+                აქციის_ფასი: { value: 446.30, ცვლილება: 1.89, ცვლილება_პროცენტი: 0.43 },
+                თვიური_მომხმარებლები: '1 მილიარდი',
+                სენტიმენტი: { score: 0.44, label: 'ნეიტრალური' },
+                სამუშაო_განცხადებები: '15 მილიონი აქტიური',
+                პრემიუმ_შემოსავალი: '$1.7 მილიარდი/კვარტალი',
+                ჩართულობა: '+22% წლიურად'
             }
         };
 
@@ -292,8 +292,8 @@ class PlatformService {
 
         return {
             ...data,
-            last_updated: new Date().toISOString(),
-            data_source: 'aggregated'
+            ბოლო_განახლება: new Date().toISOString(),
+            მონაცემთა_წყარო: 'აგრეგირებული'
         };
     }
 
