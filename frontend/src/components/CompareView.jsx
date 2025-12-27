@@ -15,16 +15,24 @@ const platforms = [
 ];
 
 const mockData = {
-  google: { sentiment: 0.65, outlook: 'bullish', price: 175.50, change: 3.2 },
-  youtube: { sentiment: 0.45, outlook: 'neutral', price: 175.50, change: 3.2 },
-  facebook: { sentiment: -0.15, outlook: 'neutral', price: 485.20, change: -1.5 },
-  instagram: { sentiment: 0.35, outlook: 'bullish', price: 485.20, change: -1.5 },
-  chatgpt: { sentiment: 0.78, outlook: 'bullish', price: null, change: null },
-  amazon: { sentiment: 0.55, outlook: 'bullish', price: 185.75, change: 2.1 },
-  twitter: { sentiment: -0.25, outlook: 'bearish', price: null, change: null },
-  tiktok: { sentiment: 0.35, outlook: 'neutral', price: null, change: null },
-  reddit: { sentiment: 0.42, outlook: 'bullish', price: 125.30, change: 5.5 },
-  linkedin: { sentiment: 0.38, outlook: 'neutral', price: 425.80, change: 0.8 }
+  google: { sentiment: 0.65, outlook: 'ზრდადი', price: 175.50, change: 3.2 },
+  youtube: { sentiment: 0.45, outlook: 'ნეიტრალური', price: 175.50, change: 3.2 },
+  facebook: { sentiment: -0.15, outlook: 'ნეიტრალური', price: 485.20, change: -1.5 },
+  instagram: { sentiment: 0.35, outlook: 'ზრდადი', price: 485.20, change: -1.5 },
+  chatgpt: { sentiment: 0.78, outlook: 'ზრდადი', price: null, change: null },
+  amazon: { sentiment: 0.55, outlook: 'ზრდადი', price: 185.75, change: 2.1 },
+  twitter: { sentiment: -0.25, outlook: 'კლებადი', price: null, change: null },
+  tiktok: { sentiment: 0.35, outlook: 'ნეიტრალური', price: null, change: null },
+  reddit: { sentiment: 0.42, outlook: 'ზრდადი', price: 125.30, change: 5.5 },
+  linkedin: { sentiment: 0.38, outlook: 'ნეიტრალური', price: 425.80, change: 0.8 }
+};
+
+const getOutlookColor = (outlook) => {
+  switch (outlook) {
+    case 'ზრდადი': return 'text-green-400';
+    case 'კლებადი': return 'text-red-400';
+    default: return 'text-yellow-400';
+  }
 };
 
 export default function CompareView() {
@@ -40,19 +48,11 @@ export default function CompareView() {
     setSelected(selected.filter(s => s !== slug));
   };
 
-  const getOutlookColor = (outlook) => {
-    switch (outlook) {
-      case 'bullish': return 'text-green-400';
-      case 'bearish': return 'text-red-400';
-      default: return 'text-yellow-400';
-    }
-  };
-
   return (
     <div className="space-y-6">
       {/* Platform Selection */}
       <div className="card">
-        <h3 className="text-lg font-semibold text-white mb-4">Select Platforms to Compare (max 4)</h3>
+        <h3 className="text-lg font-semibold text-white mb-4">შეარჩიეთ პლატფორმები შედარებისთვის (მაქს. 4)</h3>
         <div className="flex flex-wrap gap-2">
           {platforms.map((platform) => {
             const isSelected = selected.includes(platform.slug);
@@ -83,7 +83,7 @@ export default function CompareView() {
           <table className="w-full">
             <thead>
               <tr className="border-b border-dark-700">
-                <th className="text-left py-3 px-4 text-dark-400 font-medium">Metric</th>
+                <th className="text-left py-3 px-4 text-dark-400 font-medium">მეტრიკა</th>
                 {selected.map((slug) => (
                   <th key={slug} className="text-center py-3 px-4 text-white font-medium">
                     {platforms.find(p => p.slug === slug)?.name}
@@ -93,7 +93,7 @@ export default function CompareView() {
             </thead>
             <tbody>
               <tr className="border-b border-dark-700">
-                <td className="py-3 px-4 text-dark-400">Sentiment Score</td>
+                <td className="py-3 px-4 text-dark-400">სენტიმენტის ქულა</td>
                 {selected.map((slug) => (
                   <td key={slug} className="text-center py-3 px-4">
                     <span className={mockData[slug].sentiment > 0 ? 'text-green-400' : 'text-red-400'}>
@@ -103,29 +103,29 @@ export default function CompareView() {
                 ))}
               </tr>
               <tr className="border-b border-dark-700">
-                <td className="py-3 px-4 text-dark-400">Market Outlook</td>
+                <td className="py-3 px-4 text-dark-400">საბაზრო პროგნოზი</td>
                 {selected.map((slug) => (
                   <td key={slug} className="text-center py-3 px-4">
-                    <span className={`capitalize ${getOutlookColor(mockData[slug].outlook)}`}>
+                    <span className={getOutlookColor(mockData[slug].outlook)}>
                       {mockData[slug].outlook}
                     </span>
                   </td>
                 ))}
               </tr>
               <tr className="border-b border-dark-700">
-                <td className="py-3 px-4 text-dark-400">Stock Price</td>
+                <td className="py-3 px-4 text-dark-400">აქციის ფასი</td>
                 {selected.map((slug) => (
                   <td key={slug} className="text-center py-3 px-4">
                     {mockData[slug].price ? (
                       <span className="text-white">${mockData[slug].price.toFixed(2)}</span>
                     ) : (
-                      <span className="text-dark-500">N/A</span>
+                      <span className="text-dark-500">არ არის</span>
                     )}
                   </td>
                 ))}
               </tr>
               <tr>
-                <td className="py-3 px-4 text-dark-400">Price Change (24h)</td>
+                <td className="py-3 px-4 text-dark-400">ფასის ცვლილება (24 სთ)</td>
                 {selected.map((slug) => (
                   <td key={slug} className="text-center py-3 px-4">
                     {mockData[slug].change !== null ? (
@@ -133,7 +133,7 @@ export default function CompareView() {
                         {mockData[slug].change >= 0 ? '+' : ''}{mockData[slug].change.toFixed(2)}%
                       </span>
                     ) : (
-                      <span className="text-dark-500">N/A</span>
+                      <span className="text-dark-500">არ არის</span>
                     )}
                   </td>
                 ))}
@@ -146,7 +146,7 @@ export default function CompareView() {
       {selected.length < 2 && (
         <div className="card text-center py-12">
           <ArrowUpDown className="w-12 h-12 mx-auto mb-4 text-dark-500" />
-          <p className="text-dark-400">Select at least 2 platforms to compare</p>
+          <p className="text-dark-400">შეარჩიეთ მინიმუმ 2 პლატფორმა შედარებისთვის</p>
         </div>
       )}
     </div>

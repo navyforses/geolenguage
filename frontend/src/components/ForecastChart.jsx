@@ -21,7 +21,7 @@ const generateData = (days = 30) => {
     const date = new Date(now - i * 24 * 60 * 60 * 1000);
     value = value + (Math.random() - 0.45) * 5;
     data.push({
-      date: date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+      date: date.toLocaleDateString('ka-GE', { month: 'short', day: 'numeric' }),
       value: parseFloat(value.toFixed(2)),
       forecast: i <= 7 ? parseFloat((value + (Math.random() - 0.3) * 3).toFixed(2)) : null
     });
@@ -46,7 +46,7 @@ const CustomTooltip = ({ active, payload, label }) => {
   return null;
 };
 
-export default function ForecastChart({ title = 'Price History', type = 'line' }) {
+export default function ForecastChart({ title = 'ფასის ისტორია', type = 'line' }) {
   const data = generateData(30);
 
   return (
@@ -80,7 +80,7 @@ export default function ForecastChart({ title = 'Price History', type = 'line' }
                 stroke="#3b82f6"
                 fillOpacity={1}
                 fill="url(#colorValue)"
-                name="Actual"
+                name="ფაქტობრივი"
               />
             </AreaChart>
           ) : (
@@ -103,7 +103,7 @@ export default function ForecastChart({ title = 'Price History', type = 'line' }
                 stroke="#3b82f6"
                 strokeWidth={2}
                 dot={false}
-                name="Actual"
+                name="ფაქტობრივი"
               />
               <Line
                 type="monotone"
@@ -112,7 +112,7 @@ export default function ForecastChart({ title = 'Price History', type = 'line' }
                 strokeWidth={2}
                 strokeDasharray="5 5"
                 dot={false}
-                name="Forecast"
+                name="პროგნოზი"
               />
             </LineChart>
           )}
@@ -121,11 +121,11 @@ export default function ForecastChart({ title = 'Price History', type = 'line' }
       <div className="flex items-center justify-center gap-6 mt-4">
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full bg-primary-500" />
-          <span className="text-sm text-dark-400">Actual</span>
+          <span className="text-sm text-dark-400">ფაქტობრივი</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-3 h-0.5 bg-green-500" style={{ borderBottom: '2px dashed #22c55e' }} />
-          <span className="text-sm text-dark-400">Forecast</span>
+          <span className="text-sm text-dark-400">პროგნოზი</span>
         </div>
       </div>
     </div>
