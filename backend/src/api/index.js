@@ -7,6 +7,7 @@ const alertsRouter = require('./routes/alerts');
 const reportsRouter = require('./routes/reports');
 const authRouter = require('./routes/auth');
 const metricsRouter = require('./routes/metrics');
+const scoutRouter = require('./routes/scout');
 
 // API Info
 router.get('/', (req, res) => {
@@ -19,7 +20,8 @@ router.get('/', (req, res) => {
             alerts: '/api/alerts',
             reports: '/api/reports',
             metrics: '/api/metrics',
-            auth: '/api/auth'
+            auth: '/api/auth',
+            scout: '/api/scout'
         },
         documentation: '/api/docs'
     });
@@ -32,5 +34,6 @@ router.use('/alerts', alertsRouter);
 router.use('/reports', reportsRouter);
 router.use('/auth', authRouter);
 router.use('/metrics', metricsRouter);
+router.use('/scout', scoutRouter);
 
 module.exports = router;
