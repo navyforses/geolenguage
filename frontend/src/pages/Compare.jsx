@@ -11,40 +11,40 @@ export default function Compare() {
           <GitCompare className="w-6 h-6 text-primary-400" />
         </div>
         <div>
-          <h1 className="text-3xl font-bold text-white">Compare Platforms</h1>
-          <p className="text-dark-400 mt-1">Side-by-side comparison of up to 4 platforms</p>
+          <h1 className="text-3xl font-bold text-white">პლატფორმების შედარება</h1>
+          <p className="text-dark-400 mt-1">4-მდე პლატფორმის გვერდიგვერდ შედარება</p>
         </div>
       </div>
 
-      {/* Compare View */}
+      {/* შედარების ხედი */}
       <CompareView />
 
-      {/* Additional Info */}
+      {/* დამატებითი ინფორმაცია */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="card">
-          <h3 className="text-lg font-semibold text-white mb-4">Comparison Metrics</h3>
+          <h3 className="text-lg font-semibold text-white mb-4">შედარების მეტრიკები</h3>
           <ul className="space-y-2 text-dark-400">
             <li className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-primary-500" />
-              <span>Sentiment Score - Social media and news sentiment</span>
+              <span>სენტიმენტის ქულა - სოციალური მედია და სიახლეების სენტიმენტი</span>
             </li>
             <li className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-green-500" />
-              <span>Market Outlook - AI-powered forecast</span>
+              <span>საბაზრო პროგნოზი - AI-ზე დაფუძნებული პროგნოზი</span>
             </li>
             <li className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-yellow-500" />
-              <span>Stock Price - Real-time market data</span>
+              <span>აქციის ფასი - რეალურ დროში საბაზრო მონაცემები</span>
             </li>
             <li className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-purple-500" />
-              <span>Price Change - 24-hour performance</span>
+              <span>ფასის ცვლილება - 24-საათიანი შედეგი</span>
             </li>
           </ul>
         </div>
 
         <div className="card">
-          <h3 className="text-lg font-semibold text-white mb-4">Data Sources</h3>
+          <h3 className="text-lg font-semibold text-white mb-4">მონაცემთა წყაროები</h3>
           <div className="grid grid-cols-2 gap-2 text-sm text-dark-400">
             <div>Alpha Vantage</div>
             <div>SEC EDGAR</div>

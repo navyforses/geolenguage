@@ -11,10 +11,10 @@ import {
 } from 'lucide-react';
 
 const navItems = [
-  { path: '/', label: 'Dashboard', icon: LayoutDashboard },
-  { path: '/compare', label: 'Compare', icon: GitCompare },
-  { path: '/reports', label: 'Reports', icon: FileText },
-  { path: '/alerts', label: 'Alerts', icon: Bell }
+  { path: '/', label: 'მთავარი', icon: LayoutDashboard },
+  { path: '/compare', label: 'შედარება', icon: GitCompare },
+  { path: '/reports', label: 'ანგარიშები', icon: FileText },
+  { path: '/alerts', label: 'შეტყობინებები', icon: Bell }
 ];
 
 export default function Navigation() {
@@ -31,8 +31,8 @@ export default function Navigation() {
               <TrendingUp className="w-6 h-6 text-white" />
             </div>
             <div className="hidden sm:block">
-              <h1 className="text-lg font-bold text-white">Digital Oligopoly</h1>
-              <p className="text-xs text-dark-400">Forecast System</p>
+              <h1 className="text-lg font-bold text-white">ციფრული ოლიგოპოლია</h1>
+              <p className="text-xs text-dark-400">პროგნოზირების სისტემა</p>
             </div>
           </Link>
 

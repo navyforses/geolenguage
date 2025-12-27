@@ -12,12 +12,12 @@ const categoryColors = {
 };
 
 const categoryLabels = {
-  search: 'Search',
-  video: 'Video',
-  social: 'Social',
-  ecommerce: 'E-Commerce',
-  ai: 'AI',
-  professional: 'Professional'
+  search: 'ძიება',
+  video: 'ვიდეო',
+  social: 'სოციალური',
+  ecommerce: 'ელ-კომერცია',
+  ai: 'ხელოვნური ინტელექტი',
+  professional: 'პროფესიონალური'
 };
 
 export default function PlatformCard({ platform }) {
@@ -41,11 +41,11 @@ export default function PlatformCard({ platform }) {
   const getOutlookBadge = () => {
     switch (outlook) {
       case 'bullish':
-        return <span className="badge badge-green">Bullish</span>;
+        return <span className="badge badge-green">ზრდადი</span>;
       case 'bearish':
-        return <span className="badge badge-red">Bearish</span>;
+        return <span className="badge badge-red">კლებადი</span>;
       default:
-        return <span className="badge badge-yellow">Neutral</span>;
+        return <span className="badge badge-yellow">ნეიტრალური</span>;
     }
   };
 
@@ -91,16 +91,16 @@ export default function PlatformCard({ platform }) {
         </div>
       )}
 
-      {/* Metrics */}
+      {/* მეტრიკები */}
       <div className="space-y-2">
         <div className="flex items-center justify-between">
-          <span className="text-sm text-dark-400">Sentiment</span>
+          <span className="text-sm text-dark-400">სენტიმენტი</span>
           <span className={`text-sm font-medium ${getSentimentColor()}`}>
             {sentiment > 0 ? '+' : ''}{sentiment.toFixed(2)}
           </span>
         </div>
         <div className="flex items-center justify-between">
-          <span className="text-sm text-dark-400">Outlook</span>
+          <span className="text-sm text-dark-400">პროგნოზი</span>
           {getOutlookBadge()}
         </div>
       </div>

@@ -18,9 +18,9 @@ const mockAlerts = [
     severity: 'medium',
     platform: 'Google',
     platformSlug: 'google',
-    title: 'GOOGL up 3.2% on AI announcements',
-    description: 'Alphabet stock rose following announcements of new AI features in Google Search and Cloud services.',
-    time: '2 hours ago',
+    title: 'GOOGL გაიზარდა 3.2%-ით AI განცხადებების გამო',
+    description: 'Alphabet-ის აქცია გაიზარდა Google Search-ისა და Cloud სერვისების ახალი AI ფუნქციების გამოცხადების შემდეგ.',
+    time: '2 საათის წინ',
     timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000),
     isRead: false
   },
@@ -30,9 +30,9 @@ const mockAlerts = [
     severity: 'high',
     platform: 'ChatGPT',
     platformSlug: 'chatgpt',
-    title: 'ChatGPT trending globally',
-    description: 'Significant increase in search interest and social media mentions. Google Trends shows 95% interest score.',
-    time: '4 hours ago',
+    title: 'ChatGPT ტრენდულია გლობალურად',
+    description: 'მნიშვნელოვანი ზრდა ძიების ინტერესში და სოციალური მედიის ხსენებებში. Google Trends აჩვენებს 95% ინტერესის ქულას.',
+    time: '4 საათის წინ',
     timestamp: new Date(Date.now() - 4 * 60 * 60 * 1000),
     isRead: false
   },
@@ -42,9 +42,9 @@ const mockAlerts = [
     severity: 'high',
     platform: 'TikTok',
     platformSlug: 'tiktok',
-    title: 'TikTok regulatory concerns',
-    description: 'New legislation proposed in multiple countries that may affect platform operations and data handling.',
-    time: '6 hours ago',
+    title: 'TikTok რეგულატორული შეშფოთება',
+    description: 'ახალი კანონმდებლობა შემოთავაზებულია რამდენიმე ქვეყანაში, რომელმაც შეიძლება გავლენა მოახდინოს პლატფორმის ოპერაციებსა და მონაცემების დამუშავებაზე.',
+    time: '6 საათის წინ',
     timestamp: new Date(Date.now() - 6 * 60 * 60 * 1000),
     isRead: true
   },
@@ -52,11 +52,11 @@ const mockAlerts = [
     id: 4,
     type: 'news',
     severity: 'low',
-    platform: 'Twitter',
+    platform: 'X (Twitter)',
     platformSlug: 'twitter',
-    title: 'X announces new features',
-    description: 'Platform updates include enhanced video capabilities and new monetization options for creators.',
-    time: '8 hours ago',
+    title: 'X აცხადებს ახალ ფუნქციებს',
+    description: 'პლატფორმის განახლებები მოიცავს გაუმჯობესებულ ვიდეო შესაძლებლობებს და ახალ მონეტიზაციის ვარიანტებს კრეატორებისთვის.',
+    time: '8 საათის წინ',
     timestamp: new Date(Date.now() - 8 * 60 * 60 * 1000),
     isRead: true
   },
@@ -66,9 +66,9 @@ const mockAlerts = [
     severity: 'high',
     platform: 'Reddit',
     platformSlug: 'reddit',
-    title: 'RDDT surges 5.5% on earnings beat',
-    description: 'Reddit stock jumped after reporting better than expected quarterly earnings and user growth.',
-    time: '12 hours ago',
+    title: 'RDDT გაიზარდა 5.5%-ით შემოსავლების გადამეტებით',
+    description: 'Reddit-ის აქცია გაიზარდა მოსალოდნელზე უკეთესი კვარტალური შემოსავლებისა და მომხმარებელთა ზრდის შესახებ მოხსენების შემდეგ.',
+    time: '12 საათის წინ',
     timestamp: new Date(Date.now() - 12 * 60 * 60 * 1000),
     isRead: true
   },
@@ -78,9 +78,9 @@ const mockAlerts = [
     severity: 'medium',
     platform: 'YouTube',
     platformSlug: 'youtube',
-    title: 'Unusual traffic pattern detected',
-    description: 'YouTube trending page showing 40% higher engagement than historical average.',
-    time: '1 day ago',
+    title: 'აღმოჩენილია უჩვეულო ტრაფიკის ნიმუში',
+    description: 'YouTube-ის ტრენდული გვერდი აჩვენებს 40%-ით მაღალ ჩართულობას ისტორიულ საშუალოსთან შედარებით.',
+    time: '1 დღის წინ',
     timestamp: new Date(Date.now() - 24 * 60 * 60 * 1000),
     isRead: true
   }
@@ -140,8 +140,8 @@ export default function Alerts() {
             )}
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-white">Alerts</h1>
-            <p className="text-dark-400 mt-1">{unreadCount} unread alerts</p>
+            <h1 className="text-3xl font-bold text-white">შეტყობინებები</h1>
+            <p className="text-dark-400 mt-1">{unreadCount} წაუკითხავი შეტყობინება</p>
           </div>
         </div>
 
@@ -151,12 +151,12 @@ export default function Alerts() {
             className="btn btn-secondary flex items-center gap-2"
           >
             <Check className="w-4 h-4" />
-            Mark all as read
+            ყველას წაკითხულად მონიშვნა
           </button>
         )}
       </div>
 
-      {/* Filters */}
+      {/* ფილტრები */}
       <div className="flex flex-wrap gap-4">
         <div className="flex gap-2">
           <button
@@ -165,7 +165,7 @@ export default function Alerts() {
               filter === 'all' ? 'bg-primary-600 text-white' : 'bg-dark-700 text-dark-300 hover:bg-dark-600'
             }`}
           >
-            All
+            ყველა
           </button>
           <button
             onClick={() => setFilter('unread')}
@@ -173,7 +173,7 @@ export default function Alerts() {
               filter === 'unread' ? 'bg-primary-600 text-white' : 'bg-dark-700 text-dark-300 hover:bg-dark-600'
             }`}
           >
-            Unread
+            წაუკითხავი
           </button>
         </div>
 
@@ -184,10 +184,10 @@ export default function Alerts() {
             onChange={(e) => setSeverityFilter(e.target.value)}
             className="input bg-dark-700 border-dark-600 text-white"
           >
-            <option value="all">All Severities</option>
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
+            <option value="all">ყველა დონე</option>
+            <option value="low">დაბალი</option>
+            <option value="medium">საშუალო</option>
+            <option value="high">მაღალი</option>
           </select>
         </div>
       </div>
@@ -253,7 +253,7 @@ export default function Alerts() {
       {filteredAlerts.length === 0 && (
         <div className="card text-center py-12">
           <Bell className="w-12 h-12 mx-auto mb-4 text-dark-500" />
-          <p className="text-dark-400">No alerts match your filters</p>
+          <p className="text-dark-400">თქვენი ფილტრებით შეტყობინებები ვერ მოიძებნა</p>
         </div>
       )}
     </div>
